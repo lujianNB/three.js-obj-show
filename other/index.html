@@ -1,0 +1,62 @@
+<!--
+ * @Autor: 卢建
+ * @LastEditors: 卢建
+ * @Description: 3D
+ * @Date: 2020-10-29 10:19:26
+ * @LastEditTime: 2020-10-30 14:51:43
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebGL test</title>
+  <script src="javascript/three.min.js"></script>
+  <!-- <script src="javascript/Detector.js"></script> -->
+  <script src="javascript/OrbitControls.js"></script>
+  <script src="javascript/OBJLoader.js"></script>
+  <script src="javascript/MTLLoader.js"></script>
+
+  <style>
+    body {
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      background: hsl(0, 4%, 27%);
+    }
+  </style>
+
+</head>
+
+<body>
+  <script src="javascript/js3d.js"></script>
+  <!-- from: https://manu.ninja/webgl-3d-model-viewer-using-three-js/ -->
+  <!-- my repo: https://github.com/DaveEveritt/js3d -->
+  <script>
+    var raycaster = new THREE.Raycaster();
+    var mouse = new THREE.Vector2();
+
+    function onMouseClick(event) {
+
+      //通过鼠标点击的位置计算出raycaster所需要的点的位置，以屏幕中心为原点，值的范围为-1到1.
+
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+
+      // 通过鼠标点的位置和当前相机的矩阵计算出raycaster
+      raycaster.setFromCamera(mouse, camera);
+
+      // 获取raycaster直线和所有模型相交的数组集合
+      var intersects = raycaster.intersectObjects(scene.children[scene.children.length - 1].children);
+      if (intersects.length > 0) {
+        console.log(intersects[0]); // 根据这里面的信息可确定点击的模型范围
+        // intersects[0].object.material.color = {r:1,g:0,b:1}
+      }
+    }
+
+    window.addEventListener('click', onMouseClick, false);
+  </script>
+</body>
+
+</html>
