@@ -54,8 +54,9 @@ use .setTexturePath( path ) for texture path
     var objLoader = new THREE.OBJLoader();
     objLoader.setMaterials(materials);
     objLoader.setPath('./assets/');
-    objLoader.load('Garen.obj', function (object) {
-      object.scale.setScalar(0.005);
+    objLoader.load('1.obj', function (object) {
+      object.children[0].material.color = {r:1,g:0.6,b:0.6}
+      object.scale.setScalar(0.01);
       scene.add(object);
     });
   });

@@ -3,7 +3,7 @@
  * @LastEditors: 卢建
  * @Description: 3D
  * @Date: 2020-10-29 10:19:26
- * @LastEditTime: 2020-10-30 14:51:43
+ * @LastEditTime: 2020-11-02 09:16:07
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -49,6 +49,7 @@
 
       // 获取raycaster直线和所有模型相交的数组集合
       var intersects = raycaster.intersectObjects(scene.children[scene.children.length - 1].children);
+      console.log(scene.children[scene.children.length - 1].children)
       if (intersects.length > 0) {
         console.log(intersects[0]); // 根据这里面的信息可确定点击的模型范围
         // intersects[0].object.material.color = {r:1,g:0,b:1}

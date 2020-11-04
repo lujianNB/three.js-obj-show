@@ -19,7 +19,7 @@
         <script src="lib/threejs_ext/three.min.js"></script>
 
         <script src="lib/threejs_ext/MTLLoader.js"></script>
-        <script src="lib/threejs_ext/OBJLoader.js"></script>
+        <script src="OBJLoader.js"></script>
 
         <script src="lib/threejs/Detector.js"></script>
         <script src="lib/threejs/TrackballControls.js"></script>
@@ -153,7 +153,7 @@
     }
 
     meshviewer({
-        'meshFile': 'examples/ring/ring1.obj',
+        'meshFile': 'examples/ring/2.obj',
         'mtlFile': 'examples/ring/ring1.mtl',
         'showTexture': false,
         'container': '#viewer',
@@ -175,9 +175,9 @@
         // 获取raycaster直线和所有模型相交的数组集合
         var intersects = raycaster.intersectObjects(scene.children[scene.children.length - 1].children);
 
-
         if (intersects.length > 0) {
             console.log(intersects[0]); // 根据这里面的信息可确定点击的模型范围
+            intersects[0].object.scale.setScalar(0.001)
         }
 
     }
