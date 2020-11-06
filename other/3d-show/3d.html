@@ -6,10 +6,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <style>
-        html{
+        html {
             touch-action: none;
         }
-        
+
         body {
             font-family: Monospace;
             background-color: #000;
@@ -73,7 +73,7 @@
             camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 3000);
             camera.position.x = 0;
             camera.position.z = 2800;
-            camera.position.y = 300;
+            camera.position.y = 0;
 
             // scene
 
@@ -85,9 +85,21 @@
             var pointLight = new THREE.PointLight(0xffffff, 0.2);
             camera.add(pointLight);
             scene.add(camera);
-
+            //利用一个轴对象以可视化的3轴以简单的方式。X轴是红色的。Y轴是绿色的。Z轴是蓝色的。这有助于理解在空间的所有三个轴的方向。
+            // var axisHelper = new THREE.AxisHelper(800);
+            // scene.add(axisHelper);
             var controls = new THREE.OrbitControls(camera);
             controls.autoRotate = false;// 设置平面自动旋转
+            //上下翻转的最大角度
+            controls.maxPolarAngle = 2.5;
+            // //上下翻转的最小角度
+            controls.minPolarAngle = 0.3;
+            //左右翻转的最大角度
+            controls.maxAzimuthAngle = 0.9;
+            //左右翻转的最小角度
+            controls.minAzimuthAngle = -0.5;
+            controls.enablePan = false
+            controls.enableZoom =false
 
             // manager
 
@@ -109,6 +121,7 @@
                 // object.children[0].material.color = { r: 1, g: 0.6, b: 0.6 }
                 object.scale.setScalar(0.01);
                 object.position.y = 0;
+                object.rotation.x = -0.5;
                 scene.add(object);
 
             }
@@ -242,8 +255,15 @@
             // 获取raycaster直线和所有模型相交的数组集合
             var intersects = raycaster.intersectObjects(meshObj);
             if (intersects.length > 0) {
-                console.log(intersects[0]); // 根据这里面的信息可确定点击的模型范围增加交互效果
-                // intersects[0].object.material.color = {r:1,g:0,b:1}
+                // console.log(intersects[0].point); // 根据这里面的信息可确定点击的模型范围增加交互效果
+                let point = intersects[0].point
+                let deg // 与y轴正半轴夹角
+                if (point.x < 0) {
+                    deg = 360 + 180 * Math.atan2(point.x, point.y) / Math.PI
+                } else {
+                    deg = 180 * Math.atan2(point.x, point.y) / Math.PI
+                }
+                console.log(deg)
             }
         }
 

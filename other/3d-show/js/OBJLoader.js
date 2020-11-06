@@ -425,23 +425,25 @@ THREE.OBJLoader = (function () {
 			}
 
 			var lines = text.split('\n');
-			var head = lines.slice(0, -1)
-			var last = lines[2].split('v ').pop().split('vn ')[0]
-			var v_lines = [...lines[2].split('v ').slice(1, -1), last]
-			v_lines = v_lines.map(item => 'v ' + item)
-			// var lj_color = v_lines.map(item => item.split(' ').slice(4).join(' '))
-			// v_lines = v_lines.map(item => item.split(' ').slice(0, 4).join(' '))
-			// var vt = lines[2].split('v ').pop().split('vt ').slice(1, -1)
-			// var vt_last = lines[2].split('v ').pop().split('vt ').pop().split('vn ')[0]
-			// var vt_lines = [...vt, vt_last]
-			// vt_lines = vt_lines.map(item => 'vt ' + item)
-			var vn = lines[2].split('v ').pop().split('vn ').slice(1, -1)
-			var vn_last = lines[2].split('v ').pop().split('vn ').pop().split('f ')[0]
-			var vn_lines = [...vn, vn_last]
-			vn_lines = vn_lines.map(item => 'vn ' + item)
-			var f_lines = lines[2].split('v ').pop().split('f ').slice(1)
-			f_lines = f_lines.map(item => 'f ' + item)
-			lines = [...head, ...v_lines, ...vn_lines, ...f_lines]
+			if (lines.length < 5) {
+				var head = lines.slice(0, -1)
+				var last = lines[2].split('v ').pop().split('vn ')[0]
+				var v_lines = [...lines[2].split('v ').slice(1, -1), last]
+				v_lines = v_lines.map(item => 'v ' + item)
+				// var lj_color = v_lines.map(item => item.split(' ').slice(4).join(' '))
+				// v_lines = v_lines.map(item => item.split(' ').slice(0, 4).join(' '))
+				// var vt = lines[2].split('v ').pop().split('vt ').slice(1, -1)
+				// var vt_last = lines[2].split('v ').pop().split('vt ').pop().split('vn ')[0]
+				// var vt_lines = [...vt, vt_last]
+				// vt_lines = vt_lines.map(item => 'vt ' + item)
+				var vn = lines[2].split('v ').pop().split('vn ').slice(1, -1)
+				var vn_last = lines[2].split('v ').pop().split('vn ').pop().split('f ')[0]
+				var vn_lines = [...vn, vn_last]
+				vn_lines = vn_lines.map(item => 'vn ' + item)
+				var f_lines = lines[2].split('v ').pop().split('f ').slice(1)
+				f_lines = f_lines.map(item => 'f ' + item)
+				lines = [...head, ...v_lines, ...vn_lines, ...f_lines]
+			}
 
 			var line = '', lineFirstChar = '';
 			var lineLength = 0;
